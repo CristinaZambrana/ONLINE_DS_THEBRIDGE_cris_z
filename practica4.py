@@ -68,3 +68,22 @@ series_recaudaciones.index = nuevos_titulos
 print(f"Series de Recaudaciones: {series_recaudaciones}")
 series_espectadores.index = nuevos_titulos
 print(f"Series de Espectadores: {series_espectadores}")
+
+#PARTE II
+#Creamos el dataframe con las series de antes pero de indice peliculas
+data = {'Lanzamiento': series_lanzamiento, 'Recaudaciones': series_recaudaciones, 'Espectadores': series_espectadores}
+df = pd.DataFrame(data)
+
+año = 2023
+
+#Filtramos las peliculas de mas de 10 años
+peliculas_mas_10_años = df[df['Lanzamiento'] < año - 10]
+
+print(f"Películas con más de 10 años: {peliculas_mas_10_años}")
+
+# Filtramos las películas entre 800 millones de recaudación y 65 millones de espectadores
+peliculas_filtradas = df[(df['Recaudaciones'] > 800) & (df['Espectadores'] > 65)]
+print(f"Películas que superan los 800 millones de recaudación y 65 millones de espectadores: {peliculas_filtradas}")
+
+# Añadimos una columna 
+#peliculas_filtradas.loc[:, 'Ingreso_espectador'] = peliculas_filtradas['Recaudaciones'] / peliculas_filtradas['Espectadores']
