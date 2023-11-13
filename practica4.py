@@ -7,6 +7,7 @@ recaudaciones = [1073, 1242, 1029, 1067, 807, 857, 744, 735]  # En millones de d
 espectadores = [74.91, 93.42, 76.72, 81.35, 62.75, 68.27, 54.74, 54.34] # En millones, estimación hecha por aficionados
 
 #Apartado 1
+#Creamos las tres series pandas 
 series_lanzamiento = pd.Series(lanzamiento, index=titulos, name='Lanzamiento')
 print(f"Series de Lanzamiento: {series_lanzamiento}")
 series_recaudaciones = pd.Series(recaudaciones, index=titulos, name='Recaudaciones')
@@ -15,17 +16,18 @@ series_espectadores = pd.Series(espectadores, index=titulos, name='Espectadores'
 print(f"Series de Espectadores: {series_espectadores}")
 
 #Apartado 2
-series_recaudaciones = pd.Series(recaudaciones, index=titulos, name='Recaudaciones (en millones de dólares)')
-recaudaciones_ascendente = series_recaudaciones.sort_values(ascending=True)
-print(f"Recaudaciones Ordenadas Ascendente: {recaudaciones_ascendente}")
+series_recaudaciones = pd.Series(recaudaciones, index=titulos, name='Recaudaciones ')
 
-recaudaciones_descendente = series_recaudaciones.sort_values(ascending=False)
-print(f"Recaudaciones Ordenadas Descendente: {recaudaciones_descendente}")
+recaudaciones_ascendente = series_recaudaciones.sort_values(ascending=True) #ordenamos la serie a mayor
+print(f"Recaudaciones Ordenadas menor-mayor: {recaudaciones_ascendente}")
+
+recaudaciones_descendente = series_recaudaciones.sort_values(ascending=False) #ordenamos la serie a menor
+print(f"Recaudaciones Ordenadas mayor-menor: {recaudaciones_descendente}")
 
 #Apartado 3
 for pelicula, recaudacion in series_recaudaciones.items():
-    # Obtener el año de lanzamiento y número de espectadores correspondientes
-    lanzamiento_pelicula = lanzamiento[series_recaudaciones.index.get_loc(pelicula)]
+    
+    lanzamiento_pelicula = lanzamiento[series_recaudaciones.index.get_loc(pelicula)] #devuelve la posicion del indice, 
     espectadores_pelicula = espectadores[series_recaudaciones.index.get_loc(pelicula)]
     precio_entrada = recaudacion / espectadores_pelicula
 
@@ -38,9 +40,9 @@ for pelicula, recaudacion in series_recaudaciones.items():
 pelicula_menor_recaudacion = series_recaudaciones.idxmin()
 
 año_menor = lanzamiento[series_recaudaciones.index.get_loc(pelicula_menor_recaudacion)]
-print(f"La película con menor recaudación fue '{pelicula_menor_recaudacion}' y es del año {ano_menor_recaudacion}.")
+print(f"La película con menor recaudación fue '{pelicula_menor_recaudacion}' y es del año {año_menor}.")
 
-peliculas_condiciones = series_recaudaciones[(series_recaudaciones > 1000) & (espectadores < 75)]
+peliculas_condiciones = series_recaudaciones[(series_recaudaciones > 1000) & (espectadores_pelicula < 75)]
 pelicula_condiciones = peliculas_condiciones.index[0]
 print(f"La película con más de 1000 millones de recaudación y menos de 75 millones de espectadores es '{pelicula_condiciones}'.")
 
